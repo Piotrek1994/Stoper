@@ -35,16 +35,26 @@ const handleStart = () => {
 }
 
 const handleStop = () => {
-
-    time.innerHTML = `Ostatni czas: ${stopWatch.textContent}`
-
+	time.innerHTML = `Ostatni czas: ${stopWatch.textContent}`
 
 	if (stopWatch.textContent !== '0:00') {
 		time.style.visibility = 'visible'
-        timesArr.push(stopWatch.textContent)
-        
+		timesArr.push(stopWatch.textContent)
 	}
+	clearStuff()
+}
 
+const handlePause = () => {
+	clearInterval(countTime)
+}
+
+const handleReset = () => {
+	time.style.visibility = 'hidden'
+    timesArr = []
+	clearStuff()
+}
+
+const clearStuff = () => {
 	clearInterval(countTime)
 	stopWatch.textContent = '0:00'
 	timeList.textContent = ''
@@ -52,16 +62,15 @@ const handleStop = () => {
 	minutes = 0
 }
 
-const handlePause = () => {
-	clearInterval(countTime)
-}
+
 
 const changeColor = () => {
 	document.documentElement.style.setProperty('--first-color', colorPicker.value)
 }
 
-pauseBtn.addEventListener('click', handlePause)
 startBtn.addEventListener('click', handleStart)
+pauseBtn.addEventListener('click', handlePause)
 stopBtn.addEventListener('click', handleStop)
+resetBtn.addEventListener('click', handleReset)
 
 document.addEventListener('click', changeColor)
